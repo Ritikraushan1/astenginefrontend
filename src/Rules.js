@@ -5,11 +5,10 @@ export default function Rules() {
   const [rulesAdded, setRulesAdded] = useState([]);
   const [conditions, setConditions] = useState([
     { ruleType: "Age", operator: "=", value: "" },
-  ]); // To hold multiple conditions
+  ]);
   const [logicOperator, setLogicOperator] = useState("AND"); // Operator to combine conditions
   const [combinedRule, setCombinedRule] = useState("");
 
-  // Function to handle condition updates
   const handleConditionChange = (index, field, value) => {
     const newConditions = [...conditions];
     newConditions[index][field] = value;
@@ -19,7 +18,6 @@ export default function Rules() {
     getRules();
   }, []);
 
-  // Function to add a new condition
   const addCondition = () => {
     setConditions([
       ...conditions,
@@ -27,9 +25,8 @@ export default function Rules() {
     ]);
   };
   const astToString = (ast) => {
-    // Recursively converts the AST to a string
     if (ast.type === "operand") {
-      return ast.left; // Assuming the left property contains the string representation
+      return ast.left;
     } else if (ast.type === "operator") {
       const leftString = astToString(ast.left);
       const rightString = astToString(ast.right);
@@ -52,7 +49,6 @@ export default function Rules() {
       });
   };
 
-  // Function to create rule string from all conditions
   const handleRule = () => {
     const ruleString = conditions
       .map((cond) => {

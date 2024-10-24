@@ -52,28 +52,22 @@ export default function Forms() {
       });
   };
   const evaluateRule = (rule, data) => {
-    console.log("input rule for evaluation", rule);
-    console.log("Input data for evaluation:", data);
-    const sanitizedRule = rule.replace(/=/g, "===");
-
-    const evaluatedRule = sanitizedRule
-      .replace(/AND/g, "&&") // Replace AND with &&
-      .replace(/OR/g, "||")
-      .replace(/age/g, Number(data.age)) // Convert to number
-      .replace(/salary/g, Number(data.salary)) // Convert to number
-      .replace(/experience/g, Number(data.experience)) // Convert to number
-      .replace(/department/g, JSON.stringify(data.department)); // Assuming department is checked as a string comparison
-    console.log("evaluated rule", evaluatedRule);
-    // Evaluate the rule using the Function constructor
-    try {
-      // eslint-disable-next-line no-new-func
-      const result = new Function(`return ${evaluatedRule}`)();
-      console.log("Evaluation result:", result);
-      return result;
-    } catch (error) {
-      console.error("Error evaluating rule:", error);
-      return false; // Return false if there's an error in the rule
-    }
+    axios
+      .post("http://localhost:4000/api/rules/evaluate-rule", {
+        rule: rule,
+        data: data,
+      })
+      .then((response) => {
+        console.log("Response from API:", response.data);
+        if (response.data.result) {
+          setResult("True");
+        }
+        alert("Rule Matched!", response.data.result);
+      })
+      .catch((error) => {
+        console.error("Error creating rule:", error);
+        alert("Failed to create rule. Please try again.");
+      });
   };
 
   return (

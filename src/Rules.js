@@ -5,7 +5,7 @@ export default function Rules() {
   const [rulesAdded, setRulesAdded] = useState([]);
   const [ruleName, setRuleName] = useState("");
   const [conditions, setConditions] = useState([
-    { ruleType: "Age", operator: "=", value: "" },
+    { ruleType: "age", operator: "=", value: "" },
   ]);
   const [logicOperator, setLogicOperator] = useState("AND"); // Operator to combine conditions
   const [combinedRule, setCombinedRule] = useState("");
@@ -26,7 +26,7 @@ export default function Rules() {
   const addCondition = () => {
     setConditions([
       ...conditions,
-      { ruleType: "Age", operator: "=", value: "" },
+      { ruleType: "age", operator: "=", value: "" },
     ]);
   };
   const astToString = (ast) => {
@@ -133,10 +133,10 @@ export default function Rules() {
                   handleConditionChange(index, "ruleType", e.target.value)
                 }
               >
-                <option value="Age">Age</option>
-                <option value="Salary">Salary</option>
-                <option value="Experience">Experience</option>
-                <option value="Department">Department</option>
+                <option value="age">Age</option>
+                <option value="salary">Salary</option>
+                <option value="experience">Experience</option>
+                <option value="department">Department</option>
               </select>
               {condition.ruleType !== "Department" && (
                 <select
@@ -154,14 +154,14 @@ export default function Rules() {
                 </select>
               )}
               <input
-                type={condition.ruleType === "Department" ? "text" : "number"}
+                type={condition.ruleType === "department" ? "text" : "number"}
                 value={condition.value}
                 onChange={(e) =>
                   handleConditionChange(index, "value", e.target.value)
                 }
                 className="border-[1px] rounded-md px-2 py-1"
                 placeholder={
-                  condition.ruleType === "Department"
+                  condition.ruleType === "department"
                     ? "Enter department"
                     : "Enter value"
                 }

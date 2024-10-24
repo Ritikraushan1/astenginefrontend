@@ -54,8 +54,9 @@ export default function Forms() {
   const evaluateRule = (rule, data) => {
     console.log("input rule for evaluation", rule);
     console.log("Input data for evaluation:", data);
+    const sanitizedRule = rule.replace(/=/g, "===");
 
-    const evaluatedRule = rule
+    const evaluatedRule = sanitizedRule
       .replace(/AND/g, "&&") // Replace AND with &&
       .replace(/OR/g, "||")
       .replace(/age/g, Number(data.age)) // Convert to number
